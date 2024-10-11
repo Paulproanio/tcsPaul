@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ptCuenta.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testpaul</a> &gt; <a href="index.source.html" class="el_package">com.pruebatest.testpaul.entities</a> &gt; <span class="el_source">ptCuenta.java</span></div><h1>ptCuenta.java</h1><pre class="source lang-java linenums">																/*
+ -------------------------------------------------------------------
+| Test
+| Author: Victor Paúl Proaño Abalco
+| File Date: Tue Aug 06 21:08:12 ECT 2024
+| 
+ -------------------------------------------------------------------
+																*/
+package com.pruebatest.testpaul.entities;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+	
+@Entity
+@Table(name = &quot;ptCuenta&quot;)
+<span class="fc" id="L20">public class ptCuenta {</span>
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long numeroCuenta;
+	
+	private Float saldoInicial;
+	@ManyToOne
+	@JoinColumn(name = &quot;idEstadoCuenta&quot;)
+	private ptEstadoCuenta ptEstadoCuenta;
+	
+	@ManyToOne
+	@JoinColumn(name = &quot;idTipoCuenta&quot;)
+	private ptTipoCuenta ptTipoCuenta;
+	
+	@ManyToOne
+	@JoinColumn(name = &quot;identificacion&quot;)
+	public ptCliente ptCliente;
+	
+	public Long getNumeroCuenta() {
+<span class="fc" id="L39">		return numeroCuenta;</span>
+	}
+	
+	public void setNumeroCuenta(Long numeroCuenta) {
+<span class="fc" id="L43">		this.numeroCuenta = numeroCuenta;</span>
+<span class="fc" id="L44">	}</span>
+	
+	public Float getSaldoInicial() {
+<span class="fc" id="L47">		return saldoInicial;</span>
+	}
+	
+	public void setSaldoInicial(Float saldoInicial) {
+<span class="fc" id="L51">		this.saldoInicial = saldoInicial;</span>
+<span class="fc" id="L52">	}</span>
+
+	public ptEstadoCuenta getPtEstadoCuenta() {
+<span class="fc" id="L55">		return ptEstadoCuenta;</span>
+	}
+
+	public void setPtEstadoCuenta(ptEstadoCuenta ptEstadoCuenta) {
+<span class="fc" id="L59">		this.ptEstadoCuenta = ptEstadoCuenta;</span>
+<span class="fc" id="L60">	}</span>
+
+	public ptTipoCuenta getPtTipoCuenta() {
+<span class="fc" id="L63">		return ptTipoCuenta;</span>
+	}
+
+	public void setPtTipoCuenta(ptTipoCuenta ptTipoCuenta) {
+<span class="fc" id="L67">		this.ptTipoCuenta = ptTipoCuenta;</span>
+<span class="fc" id="L68">	}</span>
+
+	public ptCliente getPtCliente() {
+<span class="fc" id="L71">		return ptCliente;</span>
+	}
+
+	public void setPtCliente(ptCliente ptCliente) {
+<span class="fc" id="L75">		this.ptCliente = ptCliente;</span>
+<span class="fc" id="L76">	}</span>
+
+
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

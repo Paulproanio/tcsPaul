@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ptCuentaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testpaul</a> &gt; <a href="index.source.html" class="el_package">com.pruebatest.testpaul.services</a> &gt; <span class="el_source">ptCuentaService.java</span></div><h1>ptCuentaService.java</h1><pre class="source lang-java linenums">																/*
+ -------------------------------------------------------------------
+| Test
+| Author: Victor Paúl Proaño Abalco
+| File Date: Tue Aug 06 21:08:13 ECT 2024
+| 
+ -------------------------------------------------------------------
+																*/
+package com.pruebatest.testpaul.services;
+
+import com.pruebatest.testpaul.repositories.ptCuentaRepository;
+import com.pruebatest.testpaul.repositories.ptMovimientosRepository;
+import com.pruebatest.testpaul.RecordNotFoundException;
+import com.pruebatest.testpaul.entities.ptCuenta;
+import com.pruebatest.testpaul.entities.ptMovimientos;
+import com.pruebatest.testpaul.entities.dto.ptCuentaReporteDto;
+
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper; 
+import com.fasterxml.jackson.databind.ObjectWriter; 
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+<span class="fc" id="L31">public class ptCuentaService {</span>
+
+	@Autowired
+	ptCuentaRepository repo;
+	
+	@Autowired
+	ptMovimientosRepository movimientosRepo;
+
+	public List&lt;ptCuenta&gt; getAll(){
+<span class="nc" id="L40">		List&lt;ptCuenta&gt; ptCuentaList = repo.findAll();</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		if(ptCuentaList.size() &gt; 0) {</span>
+<span class="nc" id="L42">			return ptCuentaList;</span>
+		} else {
+<span class="nc" id="L44">			return new ArrayList&lt;ptCuenta&gt;();</span>
+		}
+	}
+     		
+	public ptCuenta findByNumeroCuenta(Long numeroCuenta) throws RecordNotFoundException{
+<span class="nc" id="L49">		Optional&lt;ptCuenta&gt; ptCuenta = repo.findByNumeroCuenta(numeroCuenta);</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">		if(ptCuenta.isPresent()) {</span>
+<span class="nc" id="L51">			return ptCuenta.get();</span>
+		} else {
+<span class="nc" id="L53">			throw new RecordNotFoundException(&quot;Record does not exist for the given Id&quot;);</span>
+		}
+	}
+	
+	public List&lt;ptCuentaReporteDto&gt; getReporteEstadoCuenta(String cedulaCliente, Date fechaInicial,Date fechaFinal) throws RecordNotFoundException, JsonProcessingException{
+		
+<span class="nc" id="L59">		List&lt;ptMovimientos&gt; ptCuentaDto = movimientosRepo.getReporteEstadoCuenta(cedulaCliente, fechaInicial, fechaFinal);</span>
+		
+<span class="nc" id="L61">		List&lt;ptCuentaReporteDto&gt; ptCuentaReporteDto = new ArrayList&lt;&gt;();</span>
+		
+		//ptCuentaReporteDto.stream().forEach(indice -&gt; indice.getCliente());
+		
+<span class="nc bnc" id="L65" title="All 2 branches missed.">		for (int i = 0; i &lt; ptCuentaDto.size(); i++) {</span>
+			
+<span class="nc" id="L67">			ptCuentaReporteDto ss = new ptCuentaReporteDto();</span>
+			
+<span class="nc" id="L69">			ss.setFecha(ptCuentaDto.get(i).getFechaMovimiento());</span>
+<span class="nc" id="L70">			ss.setCliente(ptCuentaDto.get(i).getPtCuenta().getPtCliente().getNombre());</span>
+<span class="nc" id="L71">			ss.setNumeroCuenta(ptCuentaDto.get(i).getPtCuenta().getNumeroCuenta());</span>
+<span class="nc" id="L72">			ss.setTipo(ptCuentaDto.get(i).getPtCuenta().getPtTipoCuenta().getNombreTipoCuenta());</span>
+<span class="nc" id="L73">			ss.setSaldoInicial(ptCuentaDto.get(i).getPtCuenta().getSaldoInicial());</span>
+<span class="nc" id="L74">			ss.setEstado(ptCuentaDto.get(i).getPtCuenta().getPtEstadoCuenta().getNombreEstadoCuenta());</span>
+<span class="nc" id="L75">			ss.setMovimiento(ptCuentaDto.get(i).getValorMovimiento());</span>
+<span class="nc" id="L76">			ss.setDisponible(ptCuentaDto.get(i).getSaldoMovimiento());</span>
+			
+<span class="nc" id="L78">			ptCuentaReporteDto.add(ss);</span>
+		}
+		
+<span class="nc bnc" id="L81" title="All 2 branches missed.">		if(ptCuentaReporteDto.size() &gt; 0) {</span>
+<span class="nc" id="L82">			return ptCuentaReporteDto;</span>
+		} else {
+<span class="nc" id="L84">			throw new RecordNotFoundException(&quot;Record does not exist for the given Id&quot;);</span>
+		}
+		
+	}
+	
+
+	public ptCuenta createptCuenta(ptCuenta ptCuenta){
+<span class="nc" id="L91">		return repo.save(ptCuenta);</span>
+	}
+
+	public ptCuenta updateptCuenta(ptCuenta ptCuenta) throws RecordNotFoundException {
+<span class="nc" id="L95">		Optional&lt;ptCuenta&gt; ptCuentaTemp = repo.findByNumeroCuenta(ptCuenta.getNumeroCuenta());</span>
+	
+<span class="nc bnc" id="L97" title="All 2 branches missed.">		if(ptCuentaTemp.isPresent()){</span>
+<span class="nc" id="L98">			return repo.save(ptCuenta);</span>
+		} else {
+<span class="nc" id="L100">			throw new RecordNotFoundException(&quot;Record does not exist for the given Id&quot;);</span>
+		}
+	}
+
+	public void deleteptCuentaByNumeroCuenta(Long numeroCuenta) throws RecordNotFoundException{
+<span class="nc" id="L105">		Optional&lt;ptCuenta&gt; ptCuenta = repo.findByNumeroCuenta(numeroCuenta);</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">		if(ptCuenta.isPresent()) {</span>
+<span class="nc" id="L107">		repo.deleteByNumeroCuenta(numeroCuenta);</span>
+<span class="nc" id="L108">		} else {</span>
+<span class="nc" id="L109">			throw new RecordNotFoundException(&quot;Record does not exist for the given Id&quot;);</span>
+		}
+<span class="nc" id="L111">	}		</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

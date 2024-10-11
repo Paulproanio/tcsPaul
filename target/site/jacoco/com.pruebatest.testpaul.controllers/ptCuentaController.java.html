@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ptCuentaController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testpaul</a> &gt; <a href="index.source.html" class="el_package">com.pruebatest.testpaul.controllers</a> &gt; <span class="el_source">ptCuentaController.java</span></div><h1>ptCuentaController.java</h1><pre class="source lang-java linenums">																/*
+ -------------------------------------------------------------------
+| Test
+| Author: Victor Paúl Proaño Abalco
+| File Date: Tue Aug 06 21:08:13 ECT 2024
+| 
+ -------------------------------------------------------------------
+																*/
+package com.pruebatest.testpaul.controllers;
+
+import com.pruebatest.testpaul.services.ptCuentaService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.pruebatest.testpaul.RecordNotFoundException;
+import com.pruebatest.testpaul.entities.ptCuenta;
+import com.pruebatest.testpaul.entities.dto.ptCuentaReporteDto;
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.sql.Date;
+import java.util.List;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;	
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
+@RestController
+@RequestMapping(&quot;/api/tp&quot;)
+<span class="fc" id="L35">public class ptCuentaController {</span>
+	@Autowired
+	ptCuentaService service;
+	
+	@GetMapping(&quot;/ptCuenta&quot;)
+	public ResponseEntity&lt;List&lt;ptCuenta&gt;&gt; getAll() {
+<span class="nc" id="L41">		List&lt;ptCuenta&gt; list = service.getAll();</span>
+<span class="nc" id="L42">		return new ResponseEntity&lt;List&lt;ptCuenta&gt;&gt;(list, new HttpHeaders(), HttpStatus.OK);</span>
+	}
+
+	@GetMapping(&quot;/ptCuenta/{id}&quot;)
+	public ResponseEntity&lt;ptCuenta&gt; getptCuentaByNumeroCuenta(@PathVariable(&quot;id&quot;) Long numeroCuenta) throws RecordNotFoundException {
+<span class="nc" id="L47">		ptCuenta entity = service.findByNumeroCuenta(numeroCuenta);</span>
+<span class="nc" id="L48">		return new ResponseEntity&lt;ptCuenta&gt;(entity, new HttpHeaders(), HttpStatus.OK);</span>
+	}
+	
+	@GetMapping(&quot;/ptCuenta/reporte/{id}&quot;)
+	public ResponseEntity&lt;List&lt;ptCuentaReporteDto&gt;&gt; getReporteEstadoCuenta(@PathVariable(&quot;id&quot;) String cedulaCliente, @RequestParam(required = true, name = &quot;fechaInicial&quot;) Date fechaInicial,  @RequestParam(required = true, name = &quot;fechaFinal&quot;) Date fechaFinal ) throws RecordNotFoundException, JsonProcessingException {
+<span class="nc" id="L53">		List&lt;ptCuentaReporteDto&gt; entity = service.getReporteEstadoCuenta(cedulaCliente,fechaInicial,fechaFinal );</span>
+<span class="nc" id="L54">		return new ResponseEntity&lt;List&lt;ptCuentaReporteDto&gt;&gt;(entity, new HttpHeaders(), HttpStatus.OK);</span>
+	}
+
+	@PostMapping(&quot;/ptCuenta&quot;)
+	public ResponseEntity&lt;ptCuenta&gt; createptCuenta(@RequestBody ptCuenta ptCuenta){
+<span class="fc" id="L59">		service.createptCuenta(ptCuenta);</span>
+<span class="fc" id="L60">		return new ResponseEntity&lt;ptCuenta&gt;(ptCuenta, new HttpHeaders(), HttpStatus.CREATED);</span>
+	}
+
+	@PutMapping(&quot;/ptCuenta&quot;)
+	public ResponseEntity&lt;ptCuenta&gt; updateptCuenta(@RequestBody ptCuenta ptCuenta) throws RecordNotFoundException{
+<span class="nc" id="L65">		service.updateptCuenta(ptCuenta);</span>
+<span class="nc" id="L66">		return new ResponseEntity&lt;ptCuenta&gt;(ptCuenta, new HttpHeaders(), HttpStatus.OK);</span>
+	}
+
+	@DeleteMapping(&quot;/ptCuenta/{id}&quot;)
+	public HttpStatus deleteptCuentaByNumeroCuenta(@PathVariable(&quot;id&quot;) Long numeroCuenta) throws RecordNotFoundException {
+<span class="nc" id="L71">		service.deleteptCuentaByNumeroCuenta(numeroCuenta);</span>
+<span class="nc" id="L72">		return HttpStatus.OK;</span>
+	}
+}				
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

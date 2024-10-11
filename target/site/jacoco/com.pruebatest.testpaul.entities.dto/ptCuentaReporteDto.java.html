@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ptCuentaReporteDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">testpaul</a> &gt; <a href="index.source.html" class="el_package">com.pruebatest.testpaul.entities.dto</a> &gt; <span class="el_source">ptCuentaReporteDto.java</span></div><h1>ptCuentaReporteDto.java</h1><pre class="source lang-java linenums">package com.pruebatest.testpaul.entities.dto;
+
+
+
+import java.sql.Date;
+
+import javax.persistence.Entity;
+
+<span class="nc" id="L9">public class ptCuentaReporteDto {</span>
+
+	private Date fecha;
+	private String cliente;
+	private Long numeroCuenta;
+	private String tipo;
+	private float saldoInicial;
+	private String estado;
+	private float movimiento;
+	private float disponible;
+	
+	public Date getFecha() {
+<span class="nc" id="L21">		return fecha;</span>
+	}
+	public void setFecha(Date fecha) {
+<span class="nc" id="L24">		this.fecha = fecha;</span>
+<span class="nc" id="L25">	}</span>
+	public String getCliente() {
+<span class="nc" id="L27">		return cliente;</span>
+	}
+	public void setCliente(String cliente) {
+<span class="nc" id="L30">		this.cliente = cliente;</span>
+<span class="nc" id="L31">	}</span>
+	public Long getNumeroCuenta() {
+<span class="nc" id="L33">		return numeroCuenta;</span>
+	}
+	public void setNumeroCuenta(Long numeroCuenta) {
+<span class="nc" id="L36">		this.numeroCuenta = numeroCuenta;</span>
+<span class="nc" id="L37">	}</span>
+	public String getTipo() {
+<span class="nc" id="L39">		return tipo;</span>
+	}
+	public void setTipo(String tipo) {
+<span class="nc" id="L42">		this.tipo = tipo;</span>
+<span class="nc" id="L43">	}</span>
+	public float getSaldoInicial() {
+<span class="nc" id="L45">		return saldoInicial;</span>
+	}
+	public void setSaldoInicial(float saldoInicial) {
+<span class="nc" id="L48">		this.saldoInicial = saldoInicial;</span>
+<span class="nc" id="L49">	}</span>
+	public String getEstado() {
+<span class="nc" id="L51">		return estado;</span>
+	}
+	public void setEstado(String estado) {
+<span class="nc" id="L54">		this.estado = estado;</span>
+<span class="nc" id="L55">	}</span>
+	public float getMovimiento() {
+<span class="nc" id="L57">		return movimiento;</span>
+	}
+	public void setMovimiento(float movimiento) {
+<span class="nc" id="L60">		this.movimiento = movimiento;</span>
+<span class="nc" id="L61">	}</span>
+	public float getDisponible() {
+<span class="nc" id="L63">		return disponible;</span>
+	}
+	public void setDisponible(float disponible) {
+<span class="nc" id="L66">		this.disponible = disponible;</span>
+<span class="nc" id="L67">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
